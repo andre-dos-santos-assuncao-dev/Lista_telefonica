@@ -6,7 +6,7 @@ public class Main {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Escolha uma opcao:");
 
-            System.out.println("1 - Adicionar contato");
+            System.out.println("1 - Gerenciar contatos");
             System.out.println("2 - Ver contatos");
             System.out.println("3 - Sair\n");
 
@@ -28,10 +28,7 @@ public class Main {
             }
 
             switch (opecao) {
-                case 1 -> {
-                    novoContato(sc, contatos);
-                    System.out.println("----------------------------------\n");
-                }    
+                case 1 -> gerenciarContatos(sc, contatos);   
                 case 2 -> contatos.verContatos();
                 case 3 -> {
                     System.out.println("\nObrigado por usar a Lista Telefonica!\n");
@@ -62,10 +59,64 @@ public class Main {
         String endereco = sc.nextLine();
 
         System.out.println("\nContato cadastrado com sucesso!\n");
+        System.out.println("----------------------------------\n");
 
         Contato contato = new Contato(nome, telefone, email, endereco);
         contatos.adicionarContato(contato.contato);
-    }       
+    }     
+    
+    public static void gerenciarContatos(Scanner sc, Contatos contatos) {
+        System.out.println("\n----------------------------------");
+        System.out.println("\nEscolha uma opcao:");
+        System.out.println("1 - Adicionar contato");
+        System.out.println("2 - Remover contato");
+        System.out.println("3 - Voltar\n");
+
+        System.out.println("Digite o numero da opcao escolhida: ");
+
+        while (!sc.hasNextInt()) {
+            System.out.println("Digite um numero valido!");
+            sc.next();
+        }
+        int opecao_gerenciar = sc.nextInt();
+
+        while (opecao_gerenciar > 3) {
+            System.out.println("Digite o numero de uma operação!");
+            try {
+                opecao_gerenciar = sc.nextInt();
+            } catch (Exception e) {
+                sc.next();
+             }
+        }     
+                    
+        switch (opecao_gerenciar) {
+            case 1 -> novoContato(sc, contatos);
+            case 2 -> {
+                System.out.println("\nDigite o ID do contato que deseja remover:");
+
+                while (!sc.hasNextInt()) {
+                    System.out.println("Digite um numero valido!");
+                     sc.next();
+                }
+                int id = sc.nextInt();
+
+                if (contatos.contatos.containsKey(id)) {
+                    contatos.removerContato(id);
+                    System.out.println("\nContato removido com sucesso!\n");
+                    System.out.println("----------------------------------\n");
+                } else {             
+                    System.out.println("\nContato nao encontrado!");
+                    gerenciarContatos(sc, contatos);
+                }
+            }
+            case 3 -> {
+                System.out.println("\n----------------------------------\n");
+                Lista_telefonica();
+            }
+            default -> {
+            }
+        }    
+    }
 
     public static void main(String[] args) {
         System.out.println("\nBem-vindo a Lista Telefonica!\n");
