@@ -58,7 +58,7 @@ public class Main {
         System.out.println("Digite o endereco do contato:");
         String endereco = sc.nextLine();
 
-        System.out.println("\nContato cadastrado com sucesso!\n");
+        System.out.println("\nContato adicionado com sucesso!\n");
         System.out.println("----------------------------------\n");
 
         Contato contato = new Contato(nome, telefone, email, endereco);
@@ -70,7 +70,8 @@ public class Main {
         System.out.println("\nEscolha uma opcao:");
         System.out.println("1 - Adicionar contato");
         System.out.println("2 - Remover contato");
-        System.out.println("3 - Voltar\n");
+        System.out.println("3 - Atualizar contato");
+        System.out.println("4 - Voltar\n");
 
         System.out.println("Digite o numero da opcao escolhida: ");
 
@@ -80,7 +81,7 @@ public class Main {
         }
         int opecao_gerenciar = sc.nextInt();
 
-        while (opecao_gerenciar > 3) {
+        while (opecao_gerenciar > 4) {
             System.out.println("Digite o numero de uma operação!");
             try {
                 opecao_gerenciar = sc.nextInt();
@@ -110,6 +111,38 @@ public class Main {
                 }
             }
             case 3 -> {
+                System.out.println("\nDigite o ID do contato que deseja atualizar:");
+
+                while (!sc.hasNextInt()) {
+                    System.out.println("Digite um numero valido!");
+                    sc.next();
+                }
+                int id = sc.nextInt();
+
+                if (contatos.contatos.containsKey(id)) {
+                    sc.nextLine();
+
+                    System.out.println("Digite o nome do contato:");
+                    String nome = sc.nextLine();
+
+                    System.out.println("Digite o telefone do contato:");
+                    String telefone = sc.nextLine();
+
+                    System.out.println("Digite o email do contato:");
+                    String email = sc.nextLine();
+
+                    System.out.println("Digite o endereco do contato:");
+                    String endereco = sc.nextLine();
+                    
+                    contatos.atualizarContato(id, nome, telefone, email, endereco);
+                    System.out.println("\nAtualizacao feita com sucesso!\n");
+                    System.out.println("----------------------------------\n");                    
+                } else {
+                    System.out.println("\nContato nao encontrado!");
+                    gerenciarContatos(sc, contatos);
+                }
+            }    
+            case 4 -> {
                 System.out.println("\n----------------------------------\n");
                 Lista_telefonica();
             }

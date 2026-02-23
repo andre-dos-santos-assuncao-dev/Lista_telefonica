@@ -23,6 +23,11 @@ public class Contatos {
         contatos = newContatos;
     }
 
+    public void atualizarContato(int id, String nome, String telefone, String email, String endereco) {
+        Contato contato = new Contato(nome, telefone, email, endereco);
+        contatos.replace(id, contato.contato);
+    }
+
     public void verContatos() {
         if (contatos.isEmpty()) {
             System.out.println("\nNenhum contato cadastrado.\n");
