@@ -1,9 +1,12 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static Contatos contatos = new Contatos();
     public static void Lista_telefonica() {
         try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("--Lista Telefonica--\n");
             System.out.println("Escolha uma opcao:");
 
             System.out.println("1 - Gerenciar contatos");
@@ -45,18 +48,11 @@ public class Main {
 
     public static void novoContato(Scanner sc, Contatos contatos) {
         sc.nextLine();
-
-        System.out.println("Digite o nome do contato:");
-        String nome = sc.nextLine();
-
-        System.out.println("Digite o telefone do contato:");
-        String telefone = sc.nextLine();
-
-        System.out.println("Digite o email do contato:");
-        String email = sc.nextLine();
-
-        System.out.println("Digite o endereco do contato:");
-        String endereco = sc.nextLine();
+        var contato_Valores = contatoValores(sc);
+        String nome = contato_Valores.get(0);
+        String telefone = contato_Valores.get(1);
+        String email = contato_Valores.get(2);
+        String endereco = contato_Valores.get(3);
 
         System.out.println("\nContato adicionado com sucesso!\n");
         System.out.println("----------------------------------\n");
@@ -67,6 +63,7 @@ public class Main {
     
     public static void gerenciarContatos(Scanner sc, Contatos contatos) {
         System.out.println("\n----------------------------------");
+        System.out.println("\n--Gerenciar Contatos--");
         System.out.println("\nEscolha uma opcao:");
         System.out.println("1 - Adicionar contato");
         System.out.println("2 - Remover contato");
@@ -121,18 +118,11 @@ public class Main {
 
                 if (contatos.contatos.containsKey(id)) {
                     sc.nextLine();
-
-                    System.out.println("Digite o nome do contato:");
-                    String nome = sc.nextLine();
-
-                    System.out.println("Digite o telefone do contato:");
-                    String telefone = sc.nextLine();
-
-                    System.out.println("Digite o email do contato:");
-                    String email = sc.nextLine();
-
-                    System.out.println("Digite o endereco do contato:");
-                    String endereco = sc.nextLine();
+                    var contato_Valores = contatoValores(sc);
+                    String nome = contato_Valores.get(0);
+                    String telefone = contato_Valores.get(1);
+                    String email = contato_Valores.get(2);
+                    String endereco = contato_Valores.get(3);
                     
                     contatos.atualizarContato(id, nome, telefone, email, endereco);
                     System.out.println("\nAtualizacao feita com sucesso!\n");
@@ -149,6 +139,21 @@ public class Main {
             default -> {
             }
         }    
+    }
+
+    public static List<String> contatoValores(Scanner sc) {
+        System.out.println("Digite o nome do contato:");
+        String nome = sc.nextLine();
+
+        System.out.println("Digite o telefone do contato:");
+        String telefone = sc.nextLine();
+
+        System.out.println("Digite o email do contato:");
+        String email = sc.nextLine();
+
+        System.out.println("Digite o endereco do contato:");
+        String endereco = sc.nextLine();
+        return Arrays.asList(nome, telefone, email, endereco);
     }
 
     public static void main(String[] args) {
